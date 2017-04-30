@@ -10,10 +10,10 @@
     "website": "thecatbirdseatrestaurant.com",
     "phone": "(615) 810-8200",
     "monday_hours": "Closed",
-    "tuesday_hours": "\n            Closed\n        ",
-    "wednesday_hours": "\n            5:30 pm - 9:00 pm\n        ",
-    "thursday_hours": "\n            5:30 pm - 9:00 pm\n        ",
-    "friday_hours": "\n            5:30 pm - 9:00 pm\n        ",
-    "saturday_hours": "\n            5:30 pm - 9:00 pm\n        ",
-    "sunday_hours": "\n            Closed\n        "
+    "tuesday_hours": "Closed",
+    "wednesday_hours": "5:30 pm - 9:00 pm",
+    "thursday_hours": "5:30 pm - 9:00 pm",
+    "friday_hours": "5:30 pm - 9:00 pm",
+    "saturday_hours": "5:30 pm - 9:00 pm",
+    "sunday_hours": "Closed"
 }

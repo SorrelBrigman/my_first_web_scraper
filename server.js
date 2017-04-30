@@ -126,17 +126,23 @@ app.get('/scrape', function(req, res){
               mondayArray = monday_hours.split('\n');
               jsonRest.monday_hours = mondayArray[1].trim();
               tuesday_hours = data.children().children().first().next().children().first().next().text();
-              jsonRest.tuesday_hours = tuesday_hours;
+              tuesdayArray = tuesday_hours.split('\n');
+              jsonRest.tuesday_hours = tuesdayArray[1].trim();
               wednesday_hours = data.children().children().first().next().next().children().first().next().text();
-              jsonRest.wednesday_hours = wednesday_hours;
+              wednesdayArray = wednesday_hours.split('\n');
+              jsonRest.wednesday_hours = wednesdayArray[1].trim();
               thursday_hours = data.children().children().first().next().next().next().children().first().next().text();
-              jsonRest.thursday_hours = thursday_hours;
+              thursdayArray = thursday_hours.split('\n');
+              jsonRest.thursday_hours = thursdayArray[1].trim();
               friday_hours = data.children().children().last().prev().prev().children().first().next().text();
-              jsonRest.friday_hours = friday_hours;
+              fridayArray = friday_hours.split('\n');
+              jsonRest.friday_hours = fridayArray[1].trim();
               saturday_hours = data.children().children().last().prev().children().first().next().text();
-              jsonRest.saturday_hours = saturday_hours;
+              saturdayArray = saturday_hours.split('\n');
+              jsonRest.saturday_hours = saturdayArray[1].trim();
               sunday_hours = data.children().children().last().children().first().next().text();
-              jsonRest.sunday_hours = sunday_hours;
+              sundayArray = sunday_hours.split('\n');
+              jsonRest.sunday_hours = sundayArray[1].trim();
             });
 
 
