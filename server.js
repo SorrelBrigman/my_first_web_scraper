@@ -68,13 +68,15 @@ app.get('/scrape', function(req, res){
             $('.biz-page-title').filter(function() {
                 var data = $(this);
                 name = data.text();
-                jsonRest.name = name;
+                nameArray = name.split("\n");
+                jsonRest.name = nameArray[1].trim();
             });
             //get restaurant category
             $('.category-str-list').filter(function() {
                 var data = $(this);
                 category_str_list = data.text();
-                jsonRest.category_str_list = category_str_list;
+                catArray = category_str_list.split('\n');
+                jsonRest.category_str_list = catArray[1].trim();
 
             });
             //get rest. price range
@@ -91,15 +93,18 @@ app.get('/scrape', function(req, res){
               console.log("address_string", address_string)
               // city_state_zip = data.children().children().last().text();
               // console.log("city_state_zip", city_state_zip)
-              jsonRest.address_string = address_array[0];
-              jsonRest.address_zip = address_array[1];
+              streetArray = address_array[0].split('\n');
+              jsonRest.address_string = streetArray[1].trim();
+              zipArray = address_array[1].split('\n');
+              jsonRest.address_zip = zipArray[0];
               // jsonRest.city_state_zip = city_state_zip;
             });
             //get restaurant neighborhood
             $('.neighborhood-str-list').filter(function() {
                 var data = $(this);
                 neighborhood_str_list = data.text();
-                jsonRest.neighborhood_str_list = neighborhood_str_list;
+                neiArray = neighborhood_str_list.split('\n');
+                jsonRest.neighborhood_str_list = neiArray[1].trim();
             });
             //get website
             $('.biz-website').filter(function() {
@@ -111,13 +116,15 @@ app.get('/scrape', function(req, res){
             $('.biz-phone').filter(function() {
                 var data = $(this);
                 phone = data.text();
-                jsonRest.phone = phone;
+                phoneArray = phone.split('\n');
+                jsonRest.phone = phoneArray[1].trim();
             });
             //get business hours
             $('.hours-table').filter(function() {
               var data = $(this);
               monday_hours = data.children().children().first().children().first().next().text();
-              jsonRest.monday_hours = monday_hours;
+              mondayArray = monday_hours.split('\n');
+              jsonRest.monday_hours = mondayArray[1].trim();
               tuesday_hours = data.children().children().first().next().children().first().next().text();
               jsonRest.tuesday_hours = tuesday_hours;
               wednesday_hours = data.children().children().first().next().next().children().first().next().text();
