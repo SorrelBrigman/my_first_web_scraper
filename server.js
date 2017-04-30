@@ -35,7 +35,21 @@ app.get('/scrape', function(req, res){
             address_zip,
             neighborhood_str_list,
             website,
-            phone;
+            phone,
+            monday_open_hour,
+            monday_close_hour,
+            tuesday_open_hour,
+            tuesday_close_hour,
+            wednesday_open_hour,
+            wednesday_close_hour,
+            thursday_open_hour,
+            thursday_close_hour,
+            friday_open_hour,
+            friday_close_hour,
+            saturday_open_hour,
+            saturday_close_hour,
+            sunday_open_hour,
+            sunday_close_hour;
 
             var jsonRest = {
               name : "",
@@ -47,7 +61,21 @@ app.get('/scrape', function(req, res){
               address_zip: "",
               neighborhood_str_list: "",
               website: "",
-              phone: ""};
+              phone: "",
+              monday_open_hour: "",
+              monday_close_hour: "",
+              tuesday_open_hour: "",
+              tuesday_close_hour: "",
+              wednesday_open_hour: "",
+              wednesday_close_hour: "",
+              thursday_open_hour: "",
+              thursday_close_hour: "",
+              friday_open_hour: "",
+              friday_close_hour: "",
+              saturday_open_hour: "",
+              saturday_close_hour: "",
+              sunday_open_hour: "",
+              sunday_close_hour: ""};
 
 
               //get restaurant name
@@ -98,6 +126,38 @@ app.get('/scrape', function(req, res){
                 var data = $(this);
                 phone = data.text();
                 jsonRest.phone = phone;
+            });
+            //get business hours
+            $('.hours-table').filter(function() {
+              var data = $(this);
+              monday_open_hour = data.children().children().first().children().first().next().text();
+              jsonRest.monday_open_hour = monday_open_hour;
+              monday_close_hour = data.children().children().first().children().first().next().next().text();
+              jsonRest.monday_close_hour = monday_close_hour;
+              tuesday_open_hour = data.children().children().first().next().children().first().next().text();
+              jsonRest.tuesday_open_hour = tuesday_open_hour;
+              tuesday_close_hour = data.children().children().first().next().children().first().next().next().text();
+              jsonRest.tuesday_close_hour = tuesday_close_hour;
+              wednesday_open_hour = data.children().children().first().next().next().children().first().next().text();
+              jsonRest.wednesday_open_hour = wednesday_open_hour;
+              wednesday_close_hour = data.children().children().first().next().next().children().first().next().next().text();
+              jsonRest.wednesday_close_hour = wednesday_close_hour;
+              thursday_open_hour = data.children().children().first().next().next().next().children().first().next().text();
+              jsonRest.thursday_open_hour = thursday_open_hour;
+              thursday_close_hour = data.children().children().first().next().next().next().children().first().next().next().text();
+              jsonRest.thursday_close_hour =thursday_close_hour;
+              friday_open_hour = data.children().children().last().prev().prev().children().first().next().text();
+              jsonRest.friday_open_hour = friday_open_hour;
+              friday_close_hour = data.children().children().last().prev().prev().children().first().next().next().text();
+              jsonRest.friday_close_hour = friday_close_hour;
+              saturday_open_hour = data.children().children().last().prev().children().first().next().text();
+              jsonRest.saturday_open_hour = saturday_open_hour;
+              saturday_close_hour = data.children().children().last().prev().children().first().next().next().text();
+              jsonRest.saturday_close_hour = saturday_close_hour;
+              sunday_open_hour = data.children().children().last().children().first().next().text();
+              jsonRest.sunday_open_hour = sunday_open_hour;
+              sunday_close_hour= data.children().children().last().children().first().next().next().text();
+              jsonRest.sunday_close_hour = sunday_close_hour;
             });
 
 
