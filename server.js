@@ -144,6 +144,13 @@ app.get('/scrape', function(req, res){
               sundayArray = sunday_hours.split('\n');
               jsonRest.sunday_hours = sundayArray[1].trim();
             });
+            $('.review-count').filter(function() {
+              var data = $(this);
+              var numberOfReviews = data.text();
+              var reviewCountArray = numberOfReviews.split('\n');
+              var reviewNumber = reviewCountArray[1].trim()
+              jsonRest.numberOfReviews = parseInt(reviewNumber);
+            })
 
 
 
