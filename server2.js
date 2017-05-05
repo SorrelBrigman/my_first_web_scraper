@@ -57,21 +57,36 @@ app.get('/scrape2', function(req, res){
               data.children().each(function(i) {
                 let reviewData = $(this);
                 let review = {}
-                review.user_name = reviewData.find('.user-display-name').text();
-                review.yelp_id = reviewData.find('.user-display-name').attr('href');
-                review.user_location = reviewData.find('.user-location').text();
-                review.rating = reviewData.find('.i-stars').attr('title');
-                review.review_date = reviewData.find('.rating-qualifier').text();
-                review.comments =  reviewData.find('p').text()
-                review.votes_useful = reviewData.find('.useful').children().next().next().text();
-                review.votes_funny = reviewData.find('.funny').children().next().next().text();
-                review.votes_cool = reviewData.find('.cool').children().next().next().text();
-                // console.log("Review # ", i)
-                // console.log("rating", rating);
-                // console.log("review_date", review_date);
-                // console.log("useful:", votes_useful)
-                // console.log("funny:", votes_funny);
+                if (i >= 1) {
+                  let yelp_id_href = reviewData.find('.user-display-name').attr('href');
+                  let yelp_id_array = yelp_id_href.split('userid=')
+                  review.user_name = reviewData.find('.user-display-name').text();
+                  review.yelp_id = yelp_id_array[1];
+                  let location = reviewData.find('.user-location').text();
+                  console.log("location", location);
+                  let locationArray = location.split('\n');
+                  console.log("locationArray", locationArray);
+                  review.user_location = locationArray[1].trim();
+                  rawRating = reviewData.find('.i-stars').attr('title');
+                  ratingArray = rawRating.split(' star rating');
+                  review.rating = parseFloat(ratingArray[0]);
+                  let reviewDate = reviewData.find('.rating-qualifier').text();
+                  let dateArray = reviewDate.split('\n');
+                  review.review_date = dateArray[1].trim();
+                  review.comments =  reviewData.find('p').text()
+                  let useful = reviewData.find('.useful').children().next().next().text();
+                  review.votes_useful  = (useful === "") ? 0 : parseInt(useful);
+                  let funny = reviewData.find('.funny').children().next().next().text();
+                  review.votes_funny =  (funny === "") ? 0 : parseInt(funny);
+                  let cool = reviewData.find('.cool').children().next().next().text();
+                  review.votes_cool = (cool === "") ? 0 : parseInt(cool);
+                  // console.log("Review # ", i)
+                  // console.log("rating", rating);
+                  // console.log("review_date", review_date);
+                  // console.log("useful:", votes_useful)
+                  // console.log("funny:", votes_funny);
                 // console.log("cool:", votes_cool);
+              }
                 jsonReviews.push(review);
 
               })
