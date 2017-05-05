@@ -2,7 +2,7 @@
   "name": "my_first_web_scraper",
   "version": "1.0.0",
   "description": "utilizing node server for webscraping with cheerio.js",
-  "main": "server.js",
+  "main": "server2.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
