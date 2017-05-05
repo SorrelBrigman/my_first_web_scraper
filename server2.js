@@ -36,7 +36,7 @@ app.get('/scrape2', function(req, res){
                 votes_cool;
 
 
-            var jsonReview = {
+            var jsonReviews = []
               // [
               // {
               // yelp_id: "",
@@ -50,27 +50,30 @@ app.get('/scrape2', function(req, res){
               // votes_cool: ""
               // }
               // ]
-           };
+           ;
 
            $('.reviews').filter(function () {
               var data = $(this);
               data.children().each(function(i) {
                 let reviewData = $(this);
-                user_name = reviewData.find('.user-display-name').text();
-                yelp_id = reviewData.find('.user-display-name').attr('href');
-                user_location = reviewData.find('.user-location').text();
-                rating = reviewData.find('.i-stars').attr('title');
-                review_date = reviewData.find('.rating-qualifier').text();
-                comments =  reviewData.find('p').text()
-                votes_useful = reviewData.find('.useful').children().next().next().text();
-                votes_funny = reviewData.find('.funny').children().next().next().text();
-                votes_cool = reviewData.find('.cool').children().next().next().text();
-                console.log("Review # ", i)
-                console.log("rating", rating);
-                console.log("review_date", review_date);
-                console.log("useful:", votes_useful)
-                console.log("funny:", votes_funny);
-                console.log("cool:", votes_cool);
+                let review = {}
+                review.user_name = reviewData.find('.user-display-name').text();
+                review.yelp_id = reviewData.find('.user-display-name').attr('href');
+                review.user_location = reviewData.find('.user-location').text();
+                review.rating = reviewData.find('.i-stars').attr('title');
+                review.review_date = reviewData.find('.rating-qualifier').text();
+                review.comments =  reviewData.find('p').text()
+                review.votes_useful = reviewData.find('.useful').children().next().next().text();
+                review.votes_funny = reviewData.find('.funny').children().next().next().text();
+                review.votes_cool = reviewData.find('.cool').children().next().next().text();
+                // console.log("Review # ", i)
+                // console.log("rating", rating);
+                // console.log("review_date", review_date);
+                // console.log("useful:", votes_useful)
+                // console.log("funny:", votes_funny);
+                // console.log("cool:", votes_cool);
+                jsonReviews.push(review);
+
               })
 
 
@@ -84,7 +87,7 @@ app.get('/scrape2', function(req, res){
       // Parameter 2 :  JSON.stringify(json, null, 4) - the data to write, here we do an extra step by calling JSON.stringify to make our JSON easier to read
       // Parameter 3 :  callback function - a callback function to let us know the status of our function
 
-      fs.writeFile('output.json', JSON.stringify(jsonReview, null, 4), function(err){
+      fs.writeFile('outputReviews.json', JSON.stringify(jsonReviews, null, 4), function(err){
 
           console.log('File successfully written! - Check your project directory for the output.json file');
 
