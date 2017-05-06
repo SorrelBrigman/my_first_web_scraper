@@ -3,12 +3,15 @@ const fs = require('fs');
 const request = require('request');
 const cheerio = require('cheerio');
 const app     = express();
+const list = require('./restaurantList.js')
 
 app.get('/scrape2', function(req, res){
 
   // The URL we will scrape from - yelp's the catbird seat page for reviews.
 
-    url = 'https://www.yelp.com/biz/the-catbird-seat-nashville';
+for(var i = 0; i < 5) {
+
+    url = `https://www.yelp.com/biz/${list[i]}`;
 
     // The structure of our request call
     // The first parameter is our URL
@@ -54,18 +57,19 @@ app.get('/scrape2', function(req, res){
 
            $('.reviews').filter(function () {
               var data = $(this);
-              data.children().each(function(i) {
+              data.children().each(function(j) {
                 let reviewData = $(this);
                 let review = {}
-                if (i >= 1) {
+                review.restaurant_id = list[i];
+                if (j >= 1) {
                   let yelp_id_href = reviewData.find('.user-display-name').attr('href');
                   let yelp_id_array = yelp_id_href.split('userid=')
                   review.user_name = reviewData.find('.user-display-name').text();
                   review.yelp_id = yelp_id_array[1];
                   let location = reviewData.find('.user-location').text();
-                  console.log("location", location);
+
                   let locationArray = location.split('\n');
-                  console.log("locationArray", locationArray);
+                  console.log("current value of i", i);
                   review.user_location = locationArray[1].trim();
                   rawRating = reviewData.find('.i-stars').attr('title');
                   ratingArray = rawRating.split(' star rating');
@@ -102,17 +106,30 @@ app.get('/scrape2', function(req, res){
       // Parameter 2 :  JSON.stringify(json, null, 4) - the data to write, here we do an extra step by calling JSON.stringify to make our JSON easier to read
       // Parameter 3 :  callback function - a callback function to let us know the status of our function
 
-      fs.writeFile('outputReviews.json', JSON.stringify(jsonReviews, null, 4), function(err){
+     if(i === 0 ) {
+        fs.writeFileSync('outputReviews.json', JSON.stringify(jsonReviews, null, 4), function(err){
 
-          console.log('File successfully written! - Check your project directory for the output.json file');
+            console.log('File successfully written! - Check your project directory for the output.json file');
+            (i = i++)
+        })
+    } else {
+      fs.appendFileSync('outputReviews.json', JSON.stringify(jsonReviews, null, 4), function(err){
 
-      })
+            console.log('File successfully updated! - Check your project directory for the output.json file');
+            (i = i++)
+        })
+
+
+    } // end of else
 
       // Finally, we'll just send out a message to the browser reminding you that this app does not have a UI.
       res.send('Check your console!')
     }
-  });
-});
+  }); //end of request
+console.log("i at end of for loop", i)
+} // end of for loop
+
+}); //end of get
 
 
 app.listen('8080')

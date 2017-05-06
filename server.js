@@ -3,12 +3,16 @@ const fs = require('fs');
 const request = require('request');
 const cheerio = require('cheerio');
 const app     = express();
+const list = require('./restaurantList.js')
 
 app.get('/scrape', function(req, res){
 
+
+  for (var i = 0; i < 5; i++) {
+
   // The URL we will scrape from - yelp's the catbird seat page.
 
-    url = 'https://www.yelp.com/biz/the-catbird-seat-nashville';
+    url = `https://www.yelp.com/biz/${list[i]}`;
 
     // The structure of our request call
     // The first parameter is our URL
@@ -170,7 +174,9 @@ app.get('/scrape', function(req, res){
       res.send('Check your console!')
     }
   });
+ }
 });
+
 
 
 app.listen('8080')

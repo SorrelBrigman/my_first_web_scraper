@@ -499,8 +499,7 @@ let restaurantArray = [
   "cook-out-nashville",
   "jamaicaway-restaurant-and-catering-nashville-2",
   "meridian-cafe-nashville"
-
-
-
-
 ]
+
+
+module.exports = restaurantArray
